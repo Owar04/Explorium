@@ -3,7 +3,7 @@
     <body>       
         <form action='register.php' method="post">
         <label>Username:</label><br>
-        <input name="usernamename" type="text"><br>
+        <input name="Username" type="text"><br>
         <label>Password:</label><br>
         <input name="password" type="password"><br>
         <label>Email: </label><br>
@@ -14,10 +14,10 @@
 </html>
 
 <?php
-$servername = "localhost";      /* Dont touch */
-$username = "root";     /* username of database */
-$dbpassword = "";     /* database password */
-$db = "prueba";   /* database */
+$servername = "localhost";     
+$username = "root";     
+$dbpassword = "";     
+$db = "prueba";   
 
 $password = $_POST['password'];
 $CriptedPassword = password_hash($password, PASSWORD_BCRYPT); 
@@ -27,25 +27,25 @@ if ($connection->connect_error) {
     die ("Connection fail!: " . $connection->connect_error);
 }
 
-$AvaibleUser = "SELECT * FROM `users` WHERE username = '$_POST[username]' ";
-$result = $conexion->query($AvaibleUser);
+$AvaibleUser = "SELECT * FROM `users` WHERE username = '$_POST[Username]' ";
+$result = $connection->query($AvaibleUser);
 $count = mysqli_num_rows($result);
 
-if ($count = 1) {
+if ($count > 1) {
 echo "<br>This username has already been choosen<be>";}
 else{
-    $query = "INSERT INTO `users`(`username`, `email`, `password`) VALUES ('$_POST[username]','$_POST[email]','$CriptedPassword')";
-    if ($conexion->query($query) === TRUE) {
+    $query = "INSERT INTO `users`(`username`, `email`, `password`) VALUES ('$_POST[Username]','$_POST[email]','$CriptedPassword')";
+    if ($connection->query($query) === TRUE) {
  
- echo "<br />" . "<h2>" . "Usuario Creado Exitosamente!" . "</h2>";
- echo "<h4>" . "Welcome: " . $_POST['username'] . "</h4>" . "\n\n";
+ echo "<br />" . "<h2>" . "Registered succesfuly!" . "</h2>";
+ echo "<h4>" . "Welcome: " . $_POST['Username'] . "</h4>" . "\n\n";
  }
 
  else {
- echo "Error creating user." . $query . "<br>" . $conexion->error; 
+ echo "Error creating user." . $query . "<br>" . $connection->error; 
    }
  }
- mysqli_close($conexion);
+ mysqli_close($connection);
 ?>
 
 
